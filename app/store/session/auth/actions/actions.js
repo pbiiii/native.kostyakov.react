@@ -1,5 +1,5 @@
 import * as types from './actionTypes'
-import { client } from '@/core/api'
+import { client } from '../../../../core/api'
 
 export const registerAction = (email, password) => {
     return (dispatch) => {
