@@ -1,4 +1,9 @@
-import Login from "./Login";
-// import Register from './Register'
-// import Home from './Home'
-export default Login
+import LoginScreen from "./Login";
+import RegisterScreen from './Register'
+import HomeScreen from './Home'
+const Screens = {
+    LoginScreen,
+    RegisterScreen,
+    HomeScreen,
+}
+export default Screens

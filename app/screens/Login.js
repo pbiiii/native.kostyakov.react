@@ -1,28 +1,50 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { loginAction } from "../store/session/auth/actions/index";
-import { Text } from 'react-native'
+import { connect } from 'react-redux';
+import { LoginForm } from "../components/LoginForm";
+import { Actions } from 'react-native-router-flux'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+        }
+    }
+    handleChange = ({name, value}) => {
+        this.setState({ [name]: value });
+    }
+    handleSubmit = () => {
+        const { email, password } = this.state;
+        this.props.login(email, password);
+    }
     render() {
+        if(this.props.token) {
+            return Actions.tasks
+        }
         return (
-            <Text>
-                Hello World!
-            </Text>
+            <LoginForm
+                email={this.state.email}
+                password={this.state.password}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+            />
         )
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         token: state.auth.token,
-//     }
-// }
-//
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         login: bindActionCreators(loginAction, dispatch),
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+    }
+}
 
-// const withStore = connect(mapStateToProps, mapDispatchToProps);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: bindActionCreators(loginAction, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

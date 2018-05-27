@@ -1,43 +1,31 @@
 import React from 'react'
-import { withRouter } from "react-router-dom";
-import { compose } from 'ramda';
 import { connect } from 'react-redux';
-import {TasksList} from './screens/Home/components/TasksList/index'
 import {fetchTasksAction, addTaskAction, deleteTaskAction, changeTaskDoneStatusAction, openEditTaskModalAction} from "../store/tasks/actions/index";
-import './screens/Home/Home.scss'
 import { bindActionCreators } from "redux";
-import { Layout } from 'element-react'
-import { EditTaskModal } from './components/EditTaskModal'
+import { View, Text } from 'react-native'
 
 class Home extends React.Component {
-    componentDidMount() {
-        this.checkAuth()
-        return this.props.fetchTasks()
-    }
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps !== this.props) {
-            this.checkAuth()
-        }
-    }
-    checkAuth() {
-        if(!this.props.token) {
-            return this.props.history.push('/login')
-        }
-    }
+    // componentDidMount() {
+    //     this.checkAuth()
+    //     return this.props.fetchTasks()
+    // }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if(prevProps !== this.props) {
+    //         this.checkAuth()
+    //     }
+    // }
+    // checkAuth() {
+    //     if(!this.props.token) {
+    //         return this.props.history.push('/login')
+    //     }
+    // }
     render() {
         return (
-            <Layout.Row type='flex' justify='center'>
-                <Layout.Col span={12}>
-                    <TasksList
-                        tasks={this.props.tasks}
-                        addTask={this.props.addTask}
-                        deleteTask={this.props.deleteTask}
-                        changeTaskDoneStatus={this.props.changeTaskDoneStatus}
-                        openEditTaskModal={this.props.openEditTaskModal}
-                    />
-                </Layout.Col>
-                <EditTaskModal/>
-            </Layout.Row>
+            <View>
+                <Text>
+                    Home will be here!
+                </Text>
+            </View>
         )
     }
 }
@@ -61,10 +49,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const withStore = connect(mapStateToProps, mapDispatchToProps);
-const enhance = compose(
-    withRouter,
-    withStore
-);
-
-export const HomeScreen = enhance(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

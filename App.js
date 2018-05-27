@@ -1,27 +1,39 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux'
-import { StyleSheet, Text, View } from 'react-native';
-import Login from "./app/screens";
+import { Container } from 'native-base'
+import { Scene, Router, Stack } from 'react-native-router-flux'
+import { Provider, connect } from 'react-redux'
+import Screens from "./app/screens";
+const ConnectedRouter = connect()(Router);
+import { store } from "./app/store";
 
 class App extends React.Component {
   render() {
     return (
-      <Router>
-          <Scene key="root">
-              <Scene key="login" component={Login} title="Login"/>
-          </Scene>
-      </Router>
+        <Provider store={store}>
+            <Container>
+                <ConnectedRouter>
+                    <Scene>
+                        <Stack
+                            key="root"
+                            tabs={true}
+                        >
+                            <Scene key="login" component={Screens.LoginScreen} title="Login"/>
+                            <Scene key="register" component={Screens.RegisterScreen} title="Register"/>
+                        </Stack>
+                        <Stack
+                            key="tasks"
+                            tabs={true}
+                        >
+                            <Scene key="tasks" component={Screens.HomeScreen} title="Tasks"/>
+                        </Stack>
+                    </Scene>
+                </ConnectedRouter>
+            </Container>
+        </Provider>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+require('react-devtools-core').connectToDevTools({host: '10.102.106.9'})
 
 export default App

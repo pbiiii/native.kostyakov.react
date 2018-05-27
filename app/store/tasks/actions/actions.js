@@ -1,5 +1,6 @@
 import * as types from './actionTypes'
-import { client } from '@/core/api'
+import { client } from '../../../core/api'
+
 
 export const fetchTasksAction = () => {
     return (dispatch) => {
