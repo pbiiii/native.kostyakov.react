@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const client = axios.create({
-    baseURL: 'http://localhost:4000/api',
+    baseURL: 'http://10.102.106.9:4000/api',
     headers: {
         'Content-Type' : 'application/json',
         'Accept' : 'application/json',
@@ -9,19 +9,19 @@ export const client = axios.create({
 })
 
 const onResponseFulfilled = (config) => {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
-        config.headers.access_token = token;
-    }
+    // const token = localStorage.getItem('token');
+    // if (token !== null) {
+    //     config.headers.access_token = token;
+    // }
     return config;
 };
 
 
 const onResponseRejected = (error) => {
-    const {status} = error.response
-    if (status === 401) {
-        localStorage.removeItem('token')
-    }
+    // const {status} = error.response
+    // if (status === 401) {
+    //     localStorage.removeItem('token')
+    // }
     return Promise.reject(error)
 }
 

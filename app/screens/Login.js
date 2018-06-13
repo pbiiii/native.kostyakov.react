@@ -20,10 +20,19 @@ class Login extends React.Component {
         const { email, password } = this.state;
         this.props.login(email, password);
     }
-    render() {
+    componentDidMount() {
         if(this.props.token) {
-            return Actions.tasks
+            return Actions.tasks()
         }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props) {
+            if(this.props.token) {
+                return Actions.tasks()
+            }
+        }
+    }
+    render() {
         return (
             <LoginForm
                 email={this.state.email}

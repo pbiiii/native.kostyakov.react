@@ -3,27 +3,31 @@ import { connect } from 'react-redux';
 import {fetchTasksAction, addTaskAction, deleteTaskAction, changeTaskDoneStatusAction, openEditTaskModalAction} from "../store/tasks/actions/index";
 import { bindActionCreators } from "redux";
 import { View, Text } from 'react-native'
+import { Actions } from "react-native-router-flux";
 
 class Home extends React.Component {
-    // componentDidMount() {
-    //     this.checkAuth()
-    //     return this.props.fetchTasks()
-    // }
-    // componentDidUpdate(prevProps, prevState) {
-    //     if(prevProps !== this.props) {
-    //         this.checkAuth()
-    //     }
-    // }
-    // checkAuth() {
-    //     if(!this.props.token) {
-    //         return this.props.history.push('/login')
-    //     }
-    // }
+    componentDidMount() {
+        this.checkAuth()
+        return this.props.fetchTasks()
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props) {
+            this.checkAuth()
+        }
+    }
+    checkAuth() {
+        if(!this.props.token) {
+            return Actions.login()
+        }
+    }
     render() {
         return (
             <View>
                 <Text>
                     Home will be here!
+                    {
+                        console.log(this.props.token)
+                    }
                 </Text>
             </View>
         )
@@ -33,7 +37,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,
-        modalVisible: state.editTask.present.modalVisible,
+        // modalVisible: state.editTask.present.modalVisible,
         token: state.auth.token,
     }
 }

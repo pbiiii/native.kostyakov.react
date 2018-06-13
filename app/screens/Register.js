@@ -20,24 +20,29 @@ class Register extends React.Component {
         const { email, password } = this.state;
         this.props.register(email, password);
     }
-    // componentDidUpdate() {
-    //     if(this.props.registerSuccess) {
-    //         Message({
-    //             message: 'Register success',
-    //             type: 'success'
-    //         })
-    //     }
-    //     if(this.props.userAlreadyExists) {
-    //         Message({
-    //             message: `User with email ${this.state.email} already registered`,
-    //             type: 'warning'
-    //         })
-    //     }
-    // }
-    render() {
-        if(this.props.registerSuccess || this.props.userAlreadyExists) {
-            return Actions.login
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props) {
+            if(this.props.registerSuccess || this.props.userAlreadyExists) {
+                return Actions.login({
+                    registerSuccess: this.props.registerSuccess,
+                    userAlreadyExists: this.props.userAlreadyExists
+                })
+            }
         }
+        // if(this.props.registerSuccess) {
+        //     Message({
+        //         message: 'Register success',
+        //         type: 'success'
+        //     })
+        // }
+        // if(this.props.userAlreadyExists) {
+        //     Message({
+        //         message: `User with email ${this.state.email} already registered`,
+        //         type: 'warning'
+        //     })
+        // }
+    }
+    render() {
         return (
             <RegisterForm
                 email={this.state.email}

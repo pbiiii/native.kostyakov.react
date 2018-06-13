@@ -31,14 +31,15 @@ export const loginAction = (email, password) => {
                     payload: data.id
                 })
             })
-            .catch(({response}) => {
-                const { status } = response
-                if (status === 401) {
-                    dispatch({
-                        type: types.BAD_CREDENTIALS,
-                        payload: false
-                    })
-                }
+            .catch((error) => {
+                console.log(error)
+                // const { status } = response
+                // if (status === 401) {
+                //     dispatch({
+                //         type: types.BAD_CREDENTIALS,
+                //         payload: false
+                //     })
+                // }
             })
     }
 }
